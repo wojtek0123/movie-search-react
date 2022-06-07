@@ -1,12 +1,11 @@
-import { Link } from "react-router-dom";
 import Navigation from "../components/Navigation/Navigation";
+import Search from "../components/Search/Search";
 
 const Searcher = () => {
 	return (
     <>
       <Navigation />
-      <h1 style={{'marginTop': '10em'}}>Searcher</h1>
-      <Link to='/'>Home</Link>
+      <Search />
     </>
   )
 };

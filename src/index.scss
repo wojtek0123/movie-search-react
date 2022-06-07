@@ -8,16 +8,10 @@
 
 body {
   display: flex;
-  // align-items: center;
-  // justify-content: center;
   background-color: colors.$background-color;
-  // margin: 0 auto;
-  // max-width: 1200px;
-  // width: 100%;
   flex-direction: column;
-  // align-items: center;
-  // justify-content: center;
-
+  color: colors.$white-color;
+  margin: 0 1em;
 }
 
 .wrapper {

@@ -1,0 +1,15 @@
+.loading-spinner {
+	animation: rotate 1s infinite;
+	width: 5em;
+	height: 5em;
+}
+
+@keyframes rotate {
+	from {
+		transform: rotate(0);
+	}
+
+	to {
+		transform: rotate(360deg);
+	}
+}

@@ -5,7 +5,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Login from './pages/Authentication';
-import Searcher from './pages/Searcher';
+import SearchResult from './pages/SearchResult';
 
 const root = ReactDOM.createRoot(
 	document.getElementById('root') as HTMLElement
@@ -16,7 +16,7 @@ root.render(
 			<Routes>
 				<Route path='/' element={<App />}/>
 				<Route path='login' element={<Login />} />
-				<Route path='searcher' element={ <Searcher />} />
+				<Route path='searcher' element={ <SearchResult />} />
         <Route path='*' element={<App />} />
 			</Routes>
 		</BrowserRouter>

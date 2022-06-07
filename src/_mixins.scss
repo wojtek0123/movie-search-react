@@ -14,3 +14,10 @@
     background-color: colors.$hover;
   }
 }
+
+@mixin input {
+  width: 100%;
+  font-size: 1.1rem;
+  padding: 0.5em 0.75em;
+  border-radius: 0.25em;
+}

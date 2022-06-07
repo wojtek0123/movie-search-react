@@ -1,0 +1,21 @@
+@use '../../colors';
+@use '../../mixins';
+
+.search {
+  margin-top: 5em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  color: colors.$white-color;
+
+  &__btn {
+    @include mixins.button;
+    margin: 1em 2em;
+    padding: 0.6em 2em;
+  } 
+
+  input {
+    @include mixins.input;
+  }
+}
