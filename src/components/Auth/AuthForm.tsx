@@ -77,16 +77,16 @@ const AuthForm: React.FC = () => {
 					},
 				}
 			);
+			const data = await response.json();
 			if (response.ok) {
+				console.log(data);
 				navigate('/', { replace: true });
-				return response.json();
+				return data;
 			} else {
-				const data = await response.json();
 				let errorMessage = 'Authentication failed!';
 				if (data && data.error && data.error.message) {
 					errorMessage = data.error.message;
 				}
-
 				throw new Error(errorMessage);
 			}
 		} catch (error) {

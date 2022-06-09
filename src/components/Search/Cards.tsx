@@ -1,8 +1,8 @@
 import Card from './Card';
 import './Cards.scss';
-import { FetchData } from '../../types/types';
+import { FetchImdbData } from '../../types/types';
 
-const Cards: React.FC<{ movies: FetchData[] }> = (props) => {
+const Cards: React.FC<{ movies: FetchImdbData[] }> = (props) => {
 	return (
 		<div className='cards'>
 			{props.movies.map(movie => {

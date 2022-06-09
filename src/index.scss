@@ -12,6 +12,7 @@ body {
   flex-direction: column;
   color: colors.$white-color;
   margin: 0 1em;
+  overflow-x: hidden;
 }
 
 .wrapper {

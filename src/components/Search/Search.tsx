@@ -1,76 +1,51 @@
 import React, { useState } from 'react';
 import Cards from './Cards';
 import './Search.scss';
-import { FetchData, Fetch } from '../../types/types';
-import Loading from '../Loading/Loading';
+import Loading from '../UI/Loading';
+import useFetchData from '../../hooks/use-fetch-data';
 
 const Search: React.FC<{}> = () => {
-	const [enteredInput, setEnteredInput] = useState<String>('');
-	const [fetchMovies, setFetchMovies] = useState<FetchData[]>([]);
+	const [enteredInput, setEnteredInput] = useState<string>('');
 	const [movieSearch, setMovieSearch] = useState(true);
-	const [isLoading, setIsLoading] = useState(false);
+	const [url, setUrl] = useState(
+		`https://imdb-api.com/en/API/SearchMovie/${process.env.REACT_APP_IMDB_API_KEY}/`
+	);
+	const { isLoading, fetchMovies, getData } = useFetchData();
 
 	const changeToMovieSearch = () => {
 		setMovieSearch(false);
+		setUrl(
+			`https://imdb-api.com/en/API/SearchSeries/${process.env.REACT_APP_IMDB_API_KEY}/`
+		);
 	};
 
 	const changeToSerieSearch = () => {
 		setMovieSearch(true);
+		setUrl(
+			`https://imdb-api.com/en/API/SearchMovie/${process.env.REACT_APP_IMDB_API_KEY}/`
+		);
 	};
 
 	const changeEnteredInput = (event: React.ChangeEvent<HTMLInputElement>) => {
 		setEnteredInput(event.target.value);
 	};
 
-	const getMovies = async (event: React.FormEvent) => {
-		event.preventDefault();
-		setFetchMovies([]);
-		setIsLoading(true);
-		let url = 'https://imdb-api.com/en/API/SearchSeries/k_rfo8f00u/';
-
-		if (movieSearch) {
-			url = 'https://imdb-api.com/en/API/SearchMovie/k_rfo8f00u/';
-		}
-
-		try {
-			const response = await fetch(`${url}${enteredInput}`);
-
-			const data = await response.json();
-			if (response.ok) {
-				if (data.errorMessage.length !== 0) {
-					throw new Error(data.errorMessage);
-				}
-				data.results.forEach(function (movie: Fetch) {
-					const movieObject: FetchData = {
-						description: movie.description,
-						id: movie.id,
-						image: movie.image,
-						title: movie.title,
-					};
-					setFetchMovies((prevState) => [...prevState, movieObject]);
-				});
-				setIsLoading(false);
-			} else {
-				throw new Error(data.errorMessage);
-			}
-		} catch (error) {
-			alert(error);
-		}
-	};
-
 	return (
-		<form onSubmit={getMovies} className='wrapper search'>
+		<form
+			onSubmit={(event) => getData(event, url, enteredInput)}
+			className='wrapper search'
+		>
 			<h2>Movies or tv series from imdb search api </h2>
-			<div>
+			<div className='search__box'>
 				<button
-					className='search__btn'
+					className={movieSearch ? 'search__btn active' : 'search__btn'}
 					type='button'
 					onClick={changeToSerieSearch}
 				>
 					Movie
 				</button>
 				<button
-					className='search__btn'
+					className={movieSearch ? 'search__btn' : 'search__btn active'}
 					type='button'
 					onClick={changeToMovieSearch}
 				>

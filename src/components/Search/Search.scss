@@ -11,9 +11,20 @@
 
   &__btn {
     @include mixins.button;
-    margin: 1em 2em;
+    // margin: 1em 1em;
     padding: 0.6em 2em;
-  } 
+  
+    &.active {
+      background-color: colors.$fourth-color;
+    }
+  }
+
+  &__box {
+    display: flex;
+    justify-content: space-evenly;
+    width: 100%;
+    margin: 1.5em 0;
+  }
 
   input {
     @include mixins.input;

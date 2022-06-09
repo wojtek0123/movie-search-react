@@ -1,4 +1,7 @@
 .loading-spinner {
+	display: flex;
+	align-items: center;
+	justify-content: center;
 	animation: rotate 1s infinite;
 	width: 5em;
 	height: 5em;

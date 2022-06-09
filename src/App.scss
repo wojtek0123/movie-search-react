@@ -7,3 +7,14 @@
 	margin: 0 auto;
 	margin-top: 5em;
 }
+
+.app {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+
+	&__title {
+		margin-top: 2em;
+	}
+}
