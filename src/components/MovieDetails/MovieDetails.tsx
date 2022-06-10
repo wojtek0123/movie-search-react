@@ -5,6 +5,8 @@ import Loading from '../UI/Loading';
 import { MovieDetailsImdbData } from '../../types/types';
 import './MovieDetails.scss';
 
+const NUMBER_OF_ACTORS_DISPLAYED = 24;
+
 const MovieDetails: React.FC = () => {
 	const [isLoading, setIsLoading] = useState(false);
 	const [fetchMovies, setFetchMovies] = useState<MovieDetailsImdbData>();
@@ -19,13 +21,10 @@ const MovieDetails: React.FC = () => {
 			);
 			const data = await response.json();
 			if (response.ok) {
-				if (data.errorMessage !== '') {
-					throw new Error(data.errorMessage);
-				}
 				const movieObject: MovieDetailsImdbData = {
 					id: data.id,
 					title: data.title,
-					image: data.image,
+					image: data.image.replace('original', '640x800'),
 					rating: data.imDbRating,
 					metacriticsRating: data.metacriticsRating,
 					releaseDate: data.year,
@@ -54,37 +53,56 @@ const MovieDetails: React.FC = () => {
 	return (
 		<div>
 			<Navigation />
-			<div className='wrapper details__container'>
+			<div className='wrapper details'>
 				{isLoading && <Loading />}
 				<img
 					className='details__img'
 					src={fetchMovies?.backgroundImage}
-					alt=''
+					alt={`One of images from ${fetchMovies?.title}`}
 				/>
+				<h2 className='details__box-title-mobile'>{fetchMovies?.title}</h2>
+				{/* RELEASE DATE */}
 				<div className='details__boxes'>
-					<div className='details__box'>
+					<div className='details__box details__box-center-img'>
 						<img className='details__box-img' src={fetchMovies?.image} alt='' />
 					</div>
-					<div className='details__box'>
-						<h2>{fetchMovies?.title}</h2>
-						<p>{fetchMovies?.plot}</p>
-						<div className='details__box'>
-							<p>{fetchMovies?.genres}</p>
-							<p>{fetchMovies?.rating}</p>
-							<p>{fetchMovies?.metacriticsRating}</p>
+					<div className='details__box details__box-padding'>
+						<h2 className='details__box-title-desktop'>{fetchMovies?.title}</h2>
+						<p className='details__box-text'>{fetchMovies?.plot}</p>
+						{/* DIRECTORS */}
+						<div className='details__box details__box-stats'>
+							<p className='details__box-genres'>{fetchMovies?.genres}</p>
+							<p className='details__box-rating'>{fetchMovies?.rating}</p>
+							<p className='details__box-meta-rating'>
+								{fetchMovies?.metacriticsRating}
+							</p>
 						</div>
 					</div>
 				</div>
-				<div className='details__actor'>
-					{fetchMovies?.actors.map((actor) => (
-						<div className='details__actor'>
-							<img className='details__actor-img' src={actor.image} alt='' />
-							<div className='details__actor-box'>
-								<h3 className='details__actor-name'>{actor.name}</h3>
-								<p className='details__actor-character'>{actor.asCharacter}</p>
-							</div>
-						</div>
-					))}
+				{/* SIMILARS */}
+				{!isLoading && <h3 className='details__actors-title'>Actors</h3>}
+				<div className='details__actors wrapper'>
+					{fetchMovies?.actors.map((actor, index) => {
+						if (index <= NUMBER_OF_ACTORS_DISPLAYED) {
+							return (
+								<div className='details__actor' key={index}>
+									<img
+										className='details__actor-img'
+										src={actor.image.replace('original', '320x240')}
+										alt={'Photo of ' + actor.name}
+									/>
+									<div className='details__actor-box'>
+										<h3 className='details__actor-name'>{actor.name}</h3>
+										<p className='details__actor-character'>
+											{actor.asCharacter}
+										</p>
+									</div>
+								</div>
+							);
+						} else {
+							return <></>
+						}
+					})}
 				</div>
 			</div>
 		</div>

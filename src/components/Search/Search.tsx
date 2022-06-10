@@ -3,6 +3,7 @@ import Cards from './Cards';
 import './Search.scss';
 import Loading from '../UI/Loading';
 import useFetchData from '../../hooks/use-fetch-data';
+import UndoButton from '../UI/UndoButton';
 
 const Search: React.FC<{}> = () => {
 	const [enteredInput, setEnteredInput] = useState<string>('');
@@ -35,7 +36,8 @@ const Search: React.FC<{}> = () => {
 			onSubmit={(event) => getData(event, url, enteredInput)}
 			className='wrapper search'
 		>
-			<h2>Movies or tv series from imdb search api </h2>
+			<UndoButton />
+			{/* <h2>Search movies or tv series from IMDB API</h2> */}
 			<div className='search__box'>
 				<button
 					className={movieSearch ? 'search__btn active' : 'search__btn'}
@@ -53,11 +55,13 @@ const Search: React.FC<{}> = () => {
 				</button>
 			</div>
 			<input
+				className='search__input'
 				type='text'
 				onInput={changeEnteredInput}
 				placeholder={movieSearch ? 'Search a movie' : 'Search a tv serie'}
+				autoFocus
 			/>
-			<Cards movies={fetchMovies} />
+			{!isLoading && <Cards movies={fetchMovies} />}
 			{isLoading && <Loading />}
 		</form>
 	);

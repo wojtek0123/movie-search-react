@@ -1,23 +1,23 @@
 import React, { useRef, useState } from 'react';
 import Navigation from '../Navigation/Navigation';
-import classes from './AuthForm.module.scss';
+import './AuthForm.scss';
 import { useNavigate } from 'react-router-dom';
+import ArrowLeft from '../../assets/images/arrow-left-solid.svg';
 
 const AuthForm: React.FC = () => {
 	const navigate = useNavigate();
 	const [hasAccount, setHasAccount] = useState(true);
 	const [isEmailValidate, setIsEmailValidate] = useState(true);
 	const [isPasswordValidate, setIsPasswordValidate] = useState(true);
+	const [isConfirmPasswordValidate, setIsConfirmPasswordValidate] =
+		useState(true);
 	const [validations, setValidations] = useState<String[]>([]);
-
-	// const [enteredEmail, setEnteredEmail] = useState();
-	// const [isLoading, setIsLoading] = useState(false);
-
 	const emailInputRef = useRef<HTMLInputElement>(null);
 	const passwordInputRef = useRef<HTMLInputElement>(null);
+	const confirmPasswordInputRef = useRef<HTMLInputElement>(null);
 
 	const changeAccountStatus = () => {
-		setHasAccount(false);
+		setHasAccount((prevState) => !prevState);
 	};
 
 	const emailValidation = (emailInput: string) => {
@@ -29,7 +29,17 @@ const AuthForm: React.FC = () => {
 	};
 
 	const passwordValidation = (inputPassword: string) => {
-		if (inputPassword.length > 6) {
+		if (inputPassword.length >= 6) {
+			return true;
+		}
+		return false;
+	};
+
+	const confirmPasswordValidation = (
+		inputPassword: string,
+		inputConfirmPassword: string
+	) => {
+		if (inputPassword !== inputConfirmPassword) {
 			return true;
 		}
 		return false;
@@ -40,6 +50,7 @@ const AuthForm: React.FC = () => {
 
 		const enteredEmail = emailInputRef.current!.value;
 		const enteredPassword = passwordInputRef.current!.value;
+		const enteredConfirmPassword = confirmPasswordInputRef.current!.value;
 
 		if (!emailValidation(enteredEmail)) {
 			setIsEmailValidate(false);
@@ -51,7 +62,13 @@ const AuthForm: React.FC = () => {
 			setValidations((prevState) => [...prevState, 'password']);
 		}
 
+		if (confirmPasswordValidation(enteredPassword, enteredConfirmPassword)) {
+			setIsConfirmPasswordValidate(false);
+			setValidations((prevState) => [...prevState, 'confirm_password']);
+		}
+
 		if (validations.length !== 0) {
+			console.log('ERROR');
 			return;
 		}
 
@@ -97,12 +114,15 @@ const AuthForm: React.FC = () => {
 	return (
 		<div>
 			<Navigation />
-			<form className={classes.form} onSubmit={submitHandler}>
+			<form className='auth' onSubmit={submitHandler}>
+				{!hasAccount && (
+					<img className='auth__cancel-btn' src={ArrowLeft} alt='Cancel sign up and return to log in' onClick={changeAccountStatus} />
+				)}
 				<label htmlFor='login'>Login</label>
 				<input
 					type='text'
 					id='login'
-					className={classes['form__input']}
+					className='auth__input'
 					ref={emailInputRef}
 					required
 				/>
@@ -111,23 +131,36 @@ const AuthForm: React.FC = () => {
 				<input
 					type='password'
 					id='password'
-					className={classes['form__input']}
+					className='auth__input'
 					ref={passwordInputRef}
 					required
 				/>
 				{!isPasswordValidate && (
-					<small>Password should have at least 7 characters!</small>
+					<small>Password should have at least 6 characters!</small>
 				)}
+				{!hasAccount && (
+					<>
+						<label htmlFor='password'>Confirm Password</label>
+						<input
+							type='password'
+							id='password'
+							className='auth__input'
+							ref={confirmPasswordInputRef}
+							required
+						/>
+					</>
+				)}
+				{!isConfirmPasswordValidate && <small>Passwords are different!</small>}
 				{hasAccount && (
 					<button
 						type='button'
 						onClick={changeAccountStatus}
-						className={classes['form__btn-link']}
+						className='auth__btn-link'
 					>
 						Create a new account!
 					</button>
 				)}
-				<button type='submit' className={classes['form__btn']}>
+				<button type='submit' className='auth__btn'>
 					{hasAccount ? 'Log in' : 'Sign up'}
 				</button>
 			</form>

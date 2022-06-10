@@ -1,6 +1,6 @@
 import MovieDetails from '../components/MovieDetails/MovieDetails';
 
-const Details: React.FC = () => {
+const Details = () => {
 	return <MovieDetails />;
 };
 

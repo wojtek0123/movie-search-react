@@ -9,15 +9,13 @@
   transition: background-color .3s, color .3s;
 
   &:hover {
-    // background-color: colors.$hover;
-    // color: colors.$white-color;
     background-color: colors.$hover;
   }
 }
 
 @mixin input {
   width: 100%;
-  font-size: 1.1rem;
-  padding: 0.5em 0.75em;
+  font-size: 1.5rem;
+  padding: 0.75em;
   border-radius: 0.25em;
 }

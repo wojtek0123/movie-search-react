@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import './Navigation.scss';
 import searchIcon from '../../assets/images/glass-solid.svg';
 import Hamburger from './Hamburger';
@@ -7,6 +7,9 @@ import Hamburger from './Hamburger';
 const Navigation: React.FC<{}> = () => {
 	const [showMenu, setShowMenu] = useState(false);
 	const [hideMenu, setHideMenu] = useState(false);
+
+	const location = useLocation();
+	const { pathname } = location;
 
 	const showMenuHandler = (show: boolean) => {
 		setShowMenu(show);
@@ -22,14 +25,25 @@ const Navigation: React.FC<{}> = () => {
 		<nav className='nav'>
 			<div className='nav__wrapper'>
 				<Hamburger onShowMenu={showMenuHandler} hideMenu={hideMenu} />
-				<div className='nav__box'>
-					<Link to='/search' className='nav__link'>
-						<img
-							src={searchIcon}
-							alt='search icon'
-							className='nav__search-icon'
+				{pathname !== '/search' && (
+					<Link to='/search' className='nav__link-search'>
+						<input
+							type='text'
+							placeholder='Search...'
+							className='nav__search-input'
 						/>
 					</Link>
+				)}
+				<div className='nav__box'>
+					{pathname !== '/search' && (
+						<Link to='/search' className='nav__link'>
+							<img
+								src={searchIcon}
+								alt='search icon'
+								className='nav__search-icon'
+							/>
+						</Link>
+					)}
 
 					<Link to='/login' className='nav__log-btn'>
 						Log In

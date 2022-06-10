@@ -18,7 +18,7 @@ const Card: React.FC<FetchImdbData> = (props) => {
 	return (
 		<Link to={`/search/${props.id}`}>
 			<div className='card'>
-				<img src={props.image} alt='' className='card__image' />
+				<img src={props.image.replace('original', '640x800')} alt='' className='card__image' />
 				<div className='card__container'>
 					<div>
 						<h2 className='card__container-title'>{props.title}</h2>

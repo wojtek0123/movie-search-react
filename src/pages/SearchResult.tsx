@@ -1,13 +1,7 @@
-import Navigation from "../components/Navigation/Navigation";
-import Search from "../components/Search/Search";
+import Search from '../components/Search/Search';
 
 const Searcher = () => {
-	return (
-    <>
-      <Navigation />
-      <Search />
-    </>
-  )
+	return <Search />;
 };
 
 export default Searcher;
