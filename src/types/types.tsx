@@ -1,4 +1,4 @@
-export type FetchImdbData = {
+export type Movie = {
 	description: string;
 	id: string;
 	image: string;
@@ -22,4 +22,22 @@ export type MovieDetailsImdbData = {
 		asCharacter: string;
 		image: string;
 	}[];
+}
+
+export interface IFavContext {
+	favouriteMovies: {
+		id: string;
+		image: string;
+		description: string;
+		title: string;
+	}[];
+	addToFav: (movie: Movie) => void;
+	removeFromFav: (id: string) => void;
+}
+
+export interface IAuthContext {
+	token: string | null | undefined,
+	isLoggedIn: boolean,
+	login: (token: string, expirationTime: string) => void,
+	logout: () => void
 }

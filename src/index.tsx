@@ -7,22 +7,30 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Login from './pages/Authentication';
 import SearchResult from './pages/SearchResult';
 import Details from './pages/Details';
+import { AuthContextProvider } from './store/auth-context';
+import Favourites from './pages/Favourites';
+import { FavContextProvider } from './store/fav-context';
 
 const root = ReactDOM.createRoot(
 	document.getElementById('root') as HTMLElement
 );
 root.render(
-	// <React.StrictMode>
-		<BrowserRouter>
-			<Routes>
-				<Route path='/' element={<App />}/>
-				<Route path='login' element={<Login />} />
-				<Route path='search' element={ <SearchResult />} />
-				<Route path='search/:id' element={<Details />} />
-        <Route path='*' element={<App />} />
-			</Routes>
-		</BrowserRouter>
-	// </React.StrictMode>
+	<FavContextProvider>
+		<AuthContextProvider>
+			{/* <React.StrictMode> */}
+			<BrowserRouter>
+				<Routes>
+					<Route path='/' element={<App />} />
+					<Route path='login' element={<Login />} />
+					<Route path='search' element={<SearchResult />} />
+					<Route path=':id' element={<Details />} />
+					<Route path='favourites' element={<Favourites />} />
+					<Route path='*' element={<App />} />
+				</Routes>
+			</BrowserRouter>
+			{/* </React.StrictMode> */}
+		</AuthContextProvider>
+	</FavContextProvider>
 );
 
 // If you want to start measuring performance in your app, pass a function

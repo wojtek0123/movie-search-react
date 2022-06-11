@@ -1,8 +1,8 @@
 import React, { useState, useCallback } from 'react';
-import { FetchImdbData } from '../types/types';
+import { Movie } from '../types/types';
 
 const useFetchData = () => {
-	const [fetchMovies, setFetchMovies] = useState<FetchImdbData[]>([]);
+	const [fetchMovies, setFetchMovies] = useState<Movie[]>([]);
 	const [isLoading, setIsLoading] = useState(false);
 
 	const getData = useCallback(async (
@@ -21,8 +21,8 @@ const useFetchData = () => {
 				if (data.errorMessage !== '') {
 					throw new Error(data.errorMessage);
 				}
-				data.results.forEach(function (movie: FetchImdbData) {
-					const movieObject: FetchImdbData = {
+				data.results.forEach(function (movie: Movie) {
+					const movieObject: Movie = {
 						description: movie.description,
 						id: movie.id,
 						image: movie.image,
