@@ -58,23 +58,34 @@ const MovieDetails: React.FC = () => {
 				<img
 					className='details__img'
 					src={fetchMovies?.backgroundImage}
-					alt={`One of images from ${fetchMovies?.title}`}
+					alt={`One of images from movie`}
 				/>
 				<h2 className='details__box-title-mobile'>{fetchMovies?.title}</h2>
-				{/* RELEASE DATE */}
+				<p className='details__box-release-date-mobile'>
+					{fetchMovies?.releaseDate}
+				</p>
 				<div className='details__boxes'>
 					<div className='details__box details__box-center-img'>
 						<img className='details__box-img' src={fetchMovies?.image} alt='' />
 					</div>
 					<div className='details__box details__box-padding'>
-						<h2 className='details__box-title-desktop'>{fetchMovies?.title}</h2>
-						<p className='details__box-text'>{fetchMovies?.plot}</p>
-						{/* DIRECTORS */}
+						<div>
+							<h2 className='details__box-title-desktop'>
+								{fetchMovies?.title}
+							</h2>
+							<p className='details__box-release-date-desktop'>
+								{fetchMovies?.releaseDate}
+							</p>
+						</div>
+						<div>
+							<p className='details__box-text'>{fetchMovies?.plot}</p>
+							<p className='details__box-directors'>{`Directors: ${fetchMovies?.directors}`}</p>
+						</div>
 						<div className='details__box details__box-stats'>
 							<p className='details__box-genres'>{fetchMovies?.genres}</p>
-							<p className='details__box-rating'>{fetchMovies?.rating}</p>
+							<p className='details__box-rating'>{`Rating: ${fetchMovies?.rating}`}</p>
 							<p className='details__box-meta-rating'>
-								{fetchMovies?.metacriticsRating}
+								{`Metacritics: ${fetchMovies?.metacriticsRating}`}
 							</p>
 						</div>
 					</div>
@@ -83,7 +94,7 @@ const MovieDetails: React.FC = () => {
 				{!isLoading && <h3 className='details__actors-title'>Actors</h3>}
 				<div className='details__actors wrapper'>
 					{fetchMovies?.actors.map((actor, index) => {
-						if (index <= NUMBER_OF_ACTORS_DISPLAYED) {
+						if (index < NUMBER_OF_ACTORS_DISPLAYED) {
 							return (
 								<div className='details__actor' key={index}>
 									<img
@@ -100,7 +111,7 @@ const MovieDetails: React.FC = () => {
 								</div>
 							);
 						} else {
-							return <></>
+							return <></>;
 						}
 					})}
 				</div>

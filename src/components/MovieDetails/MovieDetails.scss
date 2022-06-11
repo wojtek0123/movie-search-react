@@ -3,6 +3,7 @@
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  padding-top: 3em;
 
   &__img {
     width: 100%;
@@ -21,10 +22,28 @@
 
     &-padding {
       margin-left: 1em;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      padding-bottom: 1.5em;
+    }
+
+    &-directors {
+      margin-top: 0.5em;
+      font-size: 1.2rem;
+    }
+
+    &-release-date-mobile {
+      font-size: 1rem;
+    }
+
+    &-release-date-desktop {
+      display: none;
     }
 
     &-img {
-      width: 100%;
+      width: 35vw;
+      margin-bottom: 1em;
     }
 
     &-text {
@@ -33,7 +52,7 @@
 
     &-title-mobile {
       font-size: 3rem;
-      margin: 1em 0;
+      margin: 1em 0 0.2em;
     }
 
     &-title-desktop {
@@ -43,7 +62,6 @@
     &-center-img {
       display: flex;
       align-items: center;
-      justify-content: center;
     }
 
     &-stats {
@@ -96,8 +114,41 @@
 
     &__box-title-desktop {
       display: block;
+      font-size: 3rem;
+    }
+    
+    &__box-release-date-mobile {
+      display: none;
+    }
+
+    &__box-release-date-desktop {
+      margin-bottom: 3em;
+      display: block;
+    }
+
+    &__boxes {
+      flex-direction: row;
+      margin-top: 6em;
+    }
+
+    &__box {
+      &-img { 
+        width: 25vw;
+        max-width: 400px;
+      }
+    } 
+  }
+}
+
+@media (min-width: 1024px) {
+  .details {
+    &__box-title-desktop {
+      font-size: 4rem;
+    }
+
+    &__box-text {
+      font-size: 1.5rem;
       margin-bottom: 1em;
-      font-size: 2.2rem;
     }
   }
 }
