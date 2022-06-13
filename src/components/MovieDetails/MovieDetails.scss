@@ -16,6 +16,16 @@
     margin-top: 2em;
   }
 
+  &__con {
+    position: relative;
+    width: 100%;
+    text-align: center;
+  }
+
+  &__fav-icon {
+    display: none;
+  }
+
   &__box {
     display: flex;
     flex-direction: column;
@@ -109,6 +119,14 @@
 @media (min-width: 768px) {
   .details {
     &__box-title-mobile {
+      display: none;
+    }
+
+    &__fav-icon {
+      display: block;
+    }
+
+    &__mobile-fav-btn-container {
       display: none;
     }
 

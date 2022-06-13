@@ -1,12 +1,15 @@
-import React, { useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import React, { useState, useContext } from 'react';
+import { NavLink, Link, useLocation } from 'react-router-dom';
 import './Navigation.scss';
 import searchIcon from '../../assets/images/glass-solid.svg';
 import Hamburger from './Hamburger';
+import AuthContext from '../../store/auth-context';
+import Button from '../UI/Button';
 
 const Navigation: React.FC<{}> = () => {
 	const [showMenu, setShowMenu] = useState(false);
 	const [hideMenu, setHideMenu] = useState(false);
+	const authCtx = useContext(AuthContext);
 
 	const location = useLocation();
 	const { pathname } = location;
@@ -45,32 +48,34 @@ const Navigation: React.FC<{}> = () => {
 						</Link>
 					)}
 
-					<Link to='/login' className='nav__log-btn'>
-						Log In
-					</Link>
+					{!authCtx.isLoggedIn && (
+						<Link to='/login' className='nav__log-btn'>
+							Log In
+						</Link>
+					)}
+					{authCtx.isLoggedIn && (
+						<Button classes='nav__log-btn' onClick={authCtx.logout}>
+							Log Out
+						</Button>
+					)}
 				</div>
 			</div>
-			{/* {showMenu && ( */}
 			<div
 				className={showMenu ? 'nav__links-mobile show' : 'nav__links-mobile'}
 				onClick={changeShowMenuState}
 			>
 				<div className='nav__links-container'>
-					<Link className='nav__link-mobile' to='/'>
+					<NavLink className='nav__link-mobile' to='/'>
 						Home
-					</Link>
-					<Link className='nav__link-mobile' to='/search'>
+					</NavLink>
+					<NavLink className='nav__link-mobile' to='/search'>
 						Search
-					</Link>
-					<Link className='nav__link-mobile' to='/favourite'>
+					</NavLink>
+					<NavLink className='nav__link-mobile' to='/favourites'>
 						Favourite
-					</Link>
-					<Link className='nav__link-mobile' to='/account'>
-						Account
-					</Link>
+					</NavLink>
 				</div>
 			</div>
-			{/* )} */}
 		</nav>
 	);
 };

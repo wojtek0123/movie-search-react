@@ -40,7 +40,7 @@
   }
 
   &.active &-bar::after {
-    transform: rotate(45deg) translate(6px, 5px);
+    transform: rotate(45deg) translate(6px, 6px);
     background-color: colors.$white-color;
   }
 

@@ -9,15 +9,6 @@
   flex-direction: column;
   color: colors.$white-color;
 
-  &__btn {
-    @include mixins.button;
-    padding: 0.6em 2em;
-  
-    &.active {
-      background-color: colors.$fourth-color;
-    }
-  }
-
   &__box {
     display: flex;
     justify-content: space-evenly;

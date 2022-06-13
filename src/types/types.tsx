@@ -17,12 +17,21 @@ export type MovieDetailsImdbData = {
 	genres: string;
 	backgroundImage: string;
 	plot: string;
-	actors: {
-		name: string;
-		asCharacter: string;
-		image: string;
-	}[];
-}
+	actors: Actor[];
+};
+
+export type MovieTrailer = {
+	id: string;
+	videoId: string;
+	videoUrl: string;
+};
+
+export type Actor = {
+	id: string;
+	name: string;
+	asCharacter: string;
+	image: string;
+};
 
 export interface IFavContext {
 	favouriteMovies: {
@@ -36,8 +45,8 @@ export interface IFavContext {
 }
 
 export interface IAuthContext {
-	token: string | null | undefined,
-	isLoggedIn: boolean,
-	login: (token: string, expirationTime: string) => void,
-	logout: () => void
+	token: string | null | undefined;
+	isLoggedIn: boolean;
+	login: (token: string, expirationTime: string) => void;
+	logout: () => void;
 }

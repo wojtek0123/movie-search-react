@@ -1,71 +1,83 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useContext } from 'react';
 import Navigation from '../Navigation/Navigation';
 import './AuthForm.scss';
 import { useNavigate } from 'react-router-dom';
 import ArrowLeft from '../../assets/images/arrow-left-solid.svg';
+import AuthContext from '../../store/auth-context';
+import InputForm from './InputForm';
+import useValidation from '../../hooks/use-validation';
 
 const AuthForm: React.FC = () => {
 	const navigate = useNavigate();
 	const [hasAccount, setHasAccount] = useState(true);
-	const [isEmailValidate, setIsEmailValidate] = useState(true);
-	const [isPasswordValidate, setIsPasswordValidate] = useState(true);
-	const [isConfirmPasswordValidate, setIsConfirmPasswordValidate] =
-		useState(true);
+	// const [isEmailValidate, setIsEmailValidate] = useState(true);
+	// const [isPasswordValidate, setIsPasswordValidate] = useState(true);
+	// const [isConfirmPasswordValidate, setIsConfirmPasswordValidate] =
+	// 	useState(true);
 	const [validations, setValidations] = useState<String[]>([]);
 	const emailInputRef = useRef<HTMLInputElement>(null);
 	const passwordInputRef = useRef<HTMLInputElement>(null);
 	const confirmPasswordInputRef = useRef<HTMLInputElement>(null);
 
+	const authCtx = useContext(AuthContext);
+
+	// const { isEmailValidate, isPasswordValidate, isConfirmPasswordValidate } =
+	// 	useValidation(
+	// 		passwordInputRef.current!.value,
+	// 		confirmPasswordInputRef.current!.value,
+	// 		emailInputRef.current!.value
+	// 	);
+
 	const changeAccountStatus = () => {
 		setHasAccount((prevState) => !prevState);
 	};
 
-	const emailValidation = (emailInput: string) => {
-		return emailInput
-			.toLowerCase()
-			.match(
-				/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-			);
-	};
+	// const emailValidation = (emailInput: string) => {
+	// 	return emailInput
+	// 		.toLowerCase()
+	// 		.match(
+	// 			/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+	// 		);
+	// };
 
-	const passwordValidation = (inputPassword: string) => {
-		if (inputPassword.length >= 6) {
-			return true;
-		}
-		return false;
-	};
+	// const passwordValidation = (inputPassword: string) => {
+	// 	if (inputPassword.length >= 6) {
+	// 		return true;
+	// 	}
+	// 	return false;
+	// };
 
-	const confirmPasswordValidation = (
-		inputPassword: string,
-		inputConfirmPassword: string
-	) => {
-		if (inputPassword !== inputConfirmPassword) {
-			return true;
-		}
-		return false;
-	};
+	// const confirmPasswordValidation = (
+	// 	inputPassword: string,
+	// 	inputConfirmPassword: string | undefined
+	// ) => {
+	// 	if (inputPassword !== inputConfirmPassword) {
+	// 		return true;
+	// 	}
+	// 	return false;
+	// };
 
 	const submitHandler = async (event: React.FormEvent) => {
 		event.preventDefault();
 
 		const enteredEmail = emailInputRef.current!.value;
 		const enteredPassword = passwordInputRef.current!.value;
-		const enteredConfirmPassword = confirmPasswordInputRef.current!.value;
+		const enteredConfirmPassword = confirmPasswordInputRef.current?.value;
 
-		if (!emailValidation(enteredEmail)) {
-			setIsEmailValidate(false);
-			setValidations((prevState) => [...prevState, 'email']);
-		}
+		// if (!emailValidation(enteredEmail)) {
+		// 	setIsEmailValidate(false);
+		// 	setValidations((prevState) => [...prevState, 'email']);
+		// }
 
-		if (!passwordValidation(enteredPassword)) {
-			setIsPasswordValidate(false);
-			setValidations((prevState) => [...prevState, 'password']);
-		}
+		// if (!passwordValidation(enteredPassword)) {
+		// 	setIsPasswordValidate(false);
+		// 	setValidations((prevState) => [...prevState, 'password']);
+		// }
 
-		if (confirmPasswordValidation(enteredPassword, enteredConfirmPassword)) {
-			setIsConfirmPasswordValidate(false);
-			setValidations((prevState) => [...prevState, 'confirm_password']);
-		}
+		// if (confirmPasswordValidation(enteredPassword, enteredConfirmPassword)) {
+		// 	setIsConfirmPasswordValidate(false);
+		// 	setValidations((prevState) => [...prevState, 'confirm_password']);
+		// }
 
 		if (validations.length !== 0) {
 			console.log('ERROR');
@@ -97,6 +109,10 @@ const AuthForm: React.FC = () => {
 			const data = await response.json();
 			if (response.ok) {
 				console.log(data);
+				const expirationTime = new Date(
+					new Date().getTime() + +data.expiresIn * 1000
+				);
+				authCtx.login(data.idToken, expirationTime.toISOString());
 				navigate('/', { replace: true });
 				return data;
 			} else {
@@ -116,28 +132,24 @@ const AuthForm: React.FC = () => {
 			<Navigation />
 			<form className='auth' onSubmit={submitHandler}>
 				{!hasAccount && (
-					<img className='auth__cancel-btn' src={ArrowLeft} alt='Cancel sign up and return to log in' onClick={changeAccountStatus} />
+					<div className='auth__box'>
+						<img
+							className='auth__cancel-btn'
+							src={ArrowLeft}
+							alt='Cancel sign up and return to log in'
+							onClick={changeAccountStatus}
+						/>
+					</div>
 				)}
 				<label htmlFor='login'>Login</label>
-				<input
-					type='text'
-					id='login'
-					className='auth__input'
-					ref={emailInputRef}
-					required
-				/>
-				{!isEmailValidate && <small>Email is not valid!</small>}
+				<InputForm type='text' id='login' ref={emailInputRef} />
+
+				{/* {!isEmailValidate && <small>Email is not valid!</small>}
 				<label htmlFor='password'>Password</label>
-				<input
-					type='password'
-					id='password'
-					className='auth__input'
-					ref={passwordInputRef}
-					required
-				/>
+				<InputForm type='password' id='password' ref={passwordInputRef} />
 				{!isPasswordValidate && (
 					<small>Password should have at least 6 characters!</small>
-				)}
+				)} */}
 				{!hasAccount && (
 					<>
 						<label htmlFor='password'>Confirm Password</label>
@@ -150,7 +162,7 @@ const AuthForm: React.FC = () => {
 						/>
 					</>
 				)}
-				{!isConfirmPasswordValidate && <small>Passwords are different!</small>}
+				{/* {!isConfirmPasswordValidate && <small>Passwords are different!</small>} */}
 				{hasAccount && (
 					<button
 						type='button'

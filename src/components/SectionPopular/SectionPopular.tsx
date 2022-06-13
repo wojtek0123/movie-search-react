@@ -1,18 +1,18 @@
 // import useFetchData from '../../hooks/use-fetch-data';
 import Loading from '../UI/Loading';
-import Cards from '../Search/Cards';
-import React, { useState } from 'react';
+import Cards from '../Cards/Cards';
+import React, { useState, useCallback, useEffect } from 'react';
 import './SectionPopular.scss';
-import { FetchImdbData } from '../../types/types';
+import { Movie } from '../../types/types';
 
 const PopularMovies: React.FC<{url: string, title: string}> = ({url, title}) => {
 	// const { isLoading, fetchMovies, getData } = useFetchData();
 
-	const [fetchMovies, setFetchMovies] = useState<FetchImdbData[]>([]);
+	const [fetchMovies, setFetchMovies] = useState<Movie[]>([]);
 	const [isLoading, setIsLoading] = useState(false);
 
-	const getData = async (url: string, event: React.FormEvent) => {
-		event.preventDefault();
+	const getData = useCallback(async (url: string) => {
+		// event.preventDefault();
 		setFetchMovies([]);
 		setIsLoading(true);
 		try {
@@ -20,15 +20,12 @@ const PopularMovies: React.FC<{url: string, title: string}> = ({url, title}) => 
 
 			const data = await response.json();
 			if (response.ok) {
-				// if (data.errorMessage !== '') {
-				// 	throw new Error(data.errorMessage);
-				// }
-				data.items.forEach(function (movie: FetchImdbData, index: number) {
+				data.items.forEach(function (movie: Movie, index: number) {
 					if (index < 10) {
-						const movieObject: FetchImdbData = {
+						const movieObject: Movie = {
 							description: movie.description,
 							id: movie.id,
-							image: movie.image,
+							image: movie.image.replace('original', '640x800'),
 							title: movie.title,
 						};
 						setFetchMovies((prevState) => [...prevState, movieObject]);
@@ -41,17 +38,16 @@ const PopularMovies: React.FC<{url: string, title: string}> = ({url, title}) => 
 		} catch (error) {
 			alert(error);
 		}
-	};
+	}, []);
 
-		// useEffect(() => {
-			// getData(url);
-	// }, [getData, url])
+		useEffect(() => {
+			getData(url);
+	}, [getData, url])
 
 	return (
 		<section className='wrapper popular-movies'>
 			<h2>{title}</h2>
-			<button onClick={event => getData(url, event)}>Click!</button>
-			<Cards movies={fetchMovies} />
+			{!isLoading && <Cards movies={fetchMovies} />}
 			{isLoading && <Loading />}
 		</section>
 	);

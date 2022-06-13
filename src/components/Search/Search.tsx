@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
-import Cards from './Cards';
+import React, { useEffect, useState } from 'react';
+import Cards from '../Cards/Cards';
 import './Search.scss';
 import Loading from '../UI/Loading';
-import useFetchData from '../../hooks/use-fetch-data';
+import useFetchData from '../../hooks/use-fetch-movies';
 import UndoButton from '../UI/UndoButton';
+import SearchBtns from './SearchBtns';
+import SearchTextInput from './SearchTextInput';
 
 const Search: React.FC<{}> = () => {
 	const [enteredInput, setEnteredInput] = useState<string>('');
@@ -27,43 +29,36 @@ const Search: React.FC<{}> = () => {
 		);
 	};
 
+	useEffect(() => {
+		const delayInputTyping = setTimeout(() => {
+			if (enteredInput.length !== 0) {
+				getData(url, enteredInput);
+			}
+		}, 500);
+
+		return () => clearTimeout(delayInputTyping);
+	}, [getData, enteredInput, url]);
+
 	const changeEnteredInput = (event: React.ChangeEvent<HTMLInputElement>) => {
 		setEnteredInput(event.target.value);
 	};
 
 	return (
-		<form
-			onSubmit={(event) => getData(event, url, enteredInput)}
-			className='wrapper search'
-		>
+		<div className='wrapper search'>
 			<UndoButton />
-			{/* <h2>Search movies or tv series from IMDB API</h2> */}
-			<div className='search__box'>
-				<button
-					className={movieSearch ? 'search__btn active' : 'search__btn'}
-					type='button'
-					onClick={changeToSerieSearch}
-				>
-					Movie
-				</button>
-				<button
-					className={movieSearch ? 'search__btn' : 'search__btn active'}
-					type='button'
-					onClick={changeToMovieSearch}
-				>
-					Series
-				</button>
-			</div>
-			<input
-				className='search__input'
-				type='text'
-				onInput={changeEnteredInput}
+			<SearchBtns
+				onMovie={changeToSerieSearch}
+				onTvSeries={changeToMovieSearch}
+				movieClasses={movieSearch ? 'button active' : 'button'}
+				tvSeriesClasses={movieSearch ? 'button' : 'button active'}
+			/>
+			<SearchTextInput
+				onChangeInput={changeEnteredInput}
 				placeholder={movieSearch ? 'Search a movie' : 'Search a tv serie'}
-				autoFocus
 			/>
 			{!isLoading && <Cards movies={fetchMovies} />}
 			{isLoading && <Loading />}
-		</form>
+		</div>
 	);
 };
 

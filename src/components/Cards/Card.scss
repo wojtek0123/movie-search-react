@@ -3,59 +3,8 @@
 .card {
 	position: relative;
 
-  &__image {
-    width: 100%;
-    object-fit: cover;
-    object-position: center;
-  }
-
-	&__container {
-		position: absolute;
-		bottom: 0;
-    left: 0;
-    right: 0;
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-		padding: 0.5em;
-		background-color: colors.$shadow;
-	}
-
-	&__icon-box {
-		position: absolute;
-		right: 0;
-		top: 0;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		background: none;
-		border: none;
-		background-color: colors.$skyblue-color;
-		cursor: pointer;
-		padding: 0.5em;
-		border-bottom-left-radius: 0.25em;
-
-		
-    &.is-fav {
-      background-color: red;
-    }
-	}
-
-	&__container-title {
-		font-size: 1.75rem;
-	}
-
-	&__container-text {
-		font-size: 1.3rem;
-	}
-
 	&__link {
 		color: colors.$white-color;
 		text-decoration: none;
-	}
-
-	&__fav-icon {
-		width: 3em;
-		height: 3em;
 	}
 }
