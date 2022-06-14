@@ -1,13 +1,17 @@
 import React from 'react';
-import './Button.scss';
+import style from './Button.module.scss';
 
 const Button: React.FC<{
 	children: string;
 	onClick: (event: React.FormEvent) => void;
-	classes: string;
+	classes: boolean | undefined;
 }> = ({ children, onClick, classes }) => {
 	return (
-		<button className={classes} onClick={onClick} type='button'>
+		<button
+			className={`${style.button} ${classes ? style.active : ''}`}
+			onClick={onClick}
+			type='button'
+		>
 			{children}
 		</button>
 	);

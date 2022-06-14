@@ -1,0 +1,7 @@
+@use '../../mixins';
+
+.header {
+  @include mixins.wrapper;
+  margin: 0;
+  
+}

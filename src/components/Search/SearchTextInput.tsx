@@ -1,4 +1,5 @@
 import React from 'react';
+import classes from './SearchTextInput.module.scss';
 
 const SearchTextInput: React.FC<{
 	onChangeInput: (event: React.ChangeEvent<HTMLInputElement>) => void;
@@ -6,7 +7,7 @@ const SearchTextInput: React.FC<{
 }> = ({ onChangeInput, placeholder }) => {
 	return (
 		<input
-			className='search__input'
+			className={classes.input}
 			type='text'
 			onInput={onChangeInput}
 			placeholder={placeholder}

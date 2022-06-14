@@ -1,6 +1,6 @@
 import React, { useRef, useState, useContext } from 'react';
 import Navigation from '../Navigation/Navigation';
-import './AuthForm.scss';
+import classes from './AuthForm.module.scss';
 import { useNavigate } from 'react-router-dom';
 import ArrowLeft from '../../assets/images/arrow-left-solid.svg';
 import AuthContext from '../../store/auth-context';
@@ -130,11 +130,11 @@ const AuthForm: React.FC = () => {
 	return (
 		<div>
 			<Navigation />
-			<form className='auth' onSubmit={submitHandler}>
+			<form className={classes.auth} onSubmit={submitHandler}>
 				{!hasAccount && (
-					<div className='auth__box'>
+					<div className={classes.auth__box}>
 						<img
-							className='auth__cancel-btn'
+							className={classes.auth__cancelBtn}
 							src={ArrowLeft}
 							alt='Cancel sign up and return to log in'
 							onClick={changeAccountStatus}
@@ -156,7 +156,7 @@ const AuthForm: React.FC = () => {
 						<input
 							type='password'
 							id='password'
-							className='auth__input'
+							className={classes.auth__input}
 							ref={confirmPasswordInputRef}
 							required
 						/>
@@ -167,12 +167,12 @@ const AuthForm: React.FC = () => {
 					<button
 						type='button'
 						onClick={changeAccountStatus}
-						className='auth__btn-link'
+						className={classes.auth__btnLink}
 					>
 						Create a new account!
 					</button>
 				)}
-				<button type='submit' className='auth__btn'>
+				<button type='submit' className={classes.auth__btn}>
 					{hasAccount ? 'Log in' : 'Sign up'}
 				</button>
 			</form>

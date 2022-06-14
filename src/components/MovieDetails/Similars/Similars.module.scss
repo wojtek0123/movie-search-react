@@ -1,0 +1,6 @@
+@use '../../../mixins';
+.similars {
+  @include mixins.wrapper;
+  width: 100%;
+}
+

@@ -1,8 +1,10 @@
+import classes from './Poster.module.scss';
+
 const Poster: React.FC<{ image: string | undefined}> = ({ image }) => {
 	return (
-		<div className='details__box details__box-center-img'>
+		<div className={classes.poster}>
 			<img
-				className='details__box-img'
+				className={classes.poster__img}
 				src={image}
 				alt='Movie poster'
 			/>

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Cards from '../Cards/Cards';
-import './Search.scss';
+import classes from './Search.module.scss';
 import Loading from '../UI/Loading';
 import useFetchData from '../../hooks/use-fetch-movies';
 import UndoButton from '../UI/UndoButton';
@@ -44,13 +44,13 @@ const Search: React.FC<{}> = () => {
 	};
 
 	return (
-		<div className='wrapper search'>
+		<div className={classes.search}>
 			<UndoButton />
 			<SearchBtns
 				onMovie={changeToSerieSearch}
 				onTvSeries={changeToMovieSearch}
-				movieClasses={movieSearch ? 'button active' : 'button'}
-				tvSeriesClasses={movieSearch ? 'button' : 'button active'}
+				movieClasses={movieSearch ? true : false}
+				tvSeriesClasses={movieSearch ? false : true}
 			/>
 			<SearchTextInput
 				onChangeInput={changeEnteredInput}

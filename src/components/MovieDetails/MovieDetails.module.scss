@@ -1,0 +1,16 @@
+@use '../../mixins';
+
+.details {
+	@include mixins.wrapper;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	padding-top: 3em;
+
+	&__img {
+		width: 100%;
+		object-fit: cover;
+		object-position: center;
+	}
+}

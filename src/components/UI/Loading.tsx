@@ -1,10 +1,10 @@
 import LoadingSpinner from '../../assets/images/spinner-solid.svg';
-import './Loading.scss';
+import classes from './Loading.module.scss';
 
 const Loading = () => {
 	return (
 		<img
-			className='loading-spinner'
+			className={classes.loadingSpinner}
 			src={LoadingSpinner}
 			alt='Loading spinner'
 		/>

@@ -1,14 +1,14 @@
-import { useEffect} from 'react';
+import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import Navigation from '../Navigation/Navigation';
 import Loading from '../UI/Loading';
-import './MovieDetails.scss';
-import Actors from './Actors';
-import BackgroundImage from './BackgroundImage';
-import MobileHeader from './MobileHeader';
+import classes from './MovieDetails.module.scss';
+import Actors from './Actors/Actors';
+import MobileTitle from './MobileTitle';
 import useFetchMovie from '../../hooks/use-fetch-movie';
-import Similars from './Similars';
+import Similars from './Similars/Similars';
 import Container from './Container';
+import Header from '../UI/Header';
 
 const MovieDetails: React.FC = () => {
 	const params = useParams();
@@ -21,23 +21,26 @@ const MovieDetails: React.FC = () => {
 	}, [getMovie, id]);
 
 	return (
-		<div>
+		<div className={classes.details}>
 			<Navigation />
-			<div className='wrapper details'>
-				{isLoading && <Loading />}
-				{!isLoading && (
-					<>
-						<BackgroundImage image={fetchMovie?.backgroundImage} />
-						<MobileHeader
-							movie={fetchMovie}
+			{isLoading && <Loading />}
+			{!isLoading && (
+				<>
+					<Header>
+						<img
+							className={classes.details__img}
+							src={fetchMovie?.backgroundImage}
+							alt={`One of images from movie`}
 						/>
+					</Header>
+					<main>
+						<MobileTitle movie={fetchMovie} />
 						<Container movie={fetchMovie} />
-						<Similars />
-						
+						<Similars movies={fetchMovie?.similars} />
 						<Actors actors={fetchMovie?.actors} />
-					</>
-				)}
-			</div>
+					</main>
+				</>
+			)}
 		</div>
 	);
 };

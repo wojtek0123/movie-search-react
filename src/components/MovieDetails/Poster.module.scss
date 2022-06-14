@@ -1,0 +1,14 @@
+.poster__img {
+  width: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+@media (min-width: 768px) {
+	.poster {
+		&-img {
+			width: 25vw;
+			max-width: 400px;
+		}
+	}
+}

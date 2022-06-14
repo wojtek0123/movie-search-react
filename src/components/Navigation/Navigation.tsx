@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react';
 import { NavLink, Link, useLocation } from 'react-router-dom';
-import './Navigation.scss';
+import classes from './Navigation.module.scss';
 import searchIcon from '../../assets/images/glass-solid.svg';
 import Hamburger from './Hamburger';
 import AuthContext from '../../store/auth-context';
@@ -25,53 +25,57 @@ const Navigation: React.FC<{}> = () => {
 	};
 
 	return (
-		<nav className='nav'>
-			<div className='nav__wrapper'>
+		<nav className={classes.nav}>
+			<div className={classes.nav__wrapper}>
 				<Hamburger onShowMenu={showMenuHandler} hideMenu={hideMenu} />
 				{pathname !== '/search' && (
-					<Link to='/search' className='nav__link-search'>
+					<Link to='/search' className={classes.nav__linkSearch}>
 						<input
 							type='text'
 							placeholder='Search...'
-							className='nav__search-input'
+							className={classes.nav__searchInput}
 						/>
 					</Link>
 				)}
-				<div className='nav__box'>
+				<div className={classes.nav__box}>
 					{pathname !== '/search' && (
-						<Link to='/search' className='nav__link'>
+						<Link to='/search' className={classes.nav__link}>
 							<img
 								src={searchIcon}
 								alt='search icon'
-								className='nav__search-icon'
+								className={classes.nav__searchIcon}
 							/>
 						</Link>
 					)}
 
 					{!authCtx.isLoggedIn && (
-						<Link to='/login' className='nav__log-btn'>
+						<Link to='/login' className={classes.nav__logBtn}>
 							Log In
 						</Link>
 					)}
 					{authCtx.isLoggedIn && (
-						<Button classes='nav__log-btn' onClick={authCtx.logout}>
+						<Button classes={true} onClick={authCtx.logout}>
 							Log Out
 						</Button>
 					)}
 				</div>
 			</div>
 			<div
-				className={showMenu ? 'nav__links-mobile show' : 'nav__links-mobile'}
+				className={
+					showMenu
+						? `${classes.nav__linksMobile} ${classes.show}`
+						: classes.nav__linksMobile
+				}
 				onClick={changeShowMenuState}
 			>
-				<div className='nav__links-container'>
-					<NavLink className='nav__link-mobile' to='/'>
+				<div className={classes.nav__links}>
+					<NavLink className={classes.nav__linkMobile} to='/'>
 						Home
 					</NavLink>
-					<NavLink className='nav__link-mobile' to='/search'>
+					<NavLink className={classes.nav__linkMobile} to='/search'>
 						Search
 					</NavLink>
-					<NavLink className='nav__link-mobile' to='/favourites'>
+					<NavLink className={classes.nav__linkMobile} to='/favourites'>
 						Favourite
 					</NavLink>
 				</div>

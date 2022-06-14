@@ -2,17 +2,14 @@
 import Loading from '../UI/Loading';
 import Cards from '../Cards/Cards';
 import React, { useState, useCallback, useEffect } from 'react';
-import './SectionPopular.scss';
+import classes from './SectionPopular.module.scss';
 import { Movie } from '../../types/types';
 
 const PopularMovies: React.FC<{url: string, title: string}> = ({url, title}) => {
-	// const { isLoading, fetchMovies, getData } = useFetchData();
-
 	const [fetchMovies, setFetchMovies] = useState<Movie[]>([]);
 	const [isLoading, setIsLoading] = useState(false);
 
 	const getData = useCallback(async (url: string) => {
-		// event.preventDefault();
 		setFetchMovies([]);
 		setIsLoading(true);
 		try {
@@ -23,7 +20,7 @@ const PopularMovies: React.FC<{url: string, title: string}> = ({url, title}) => 
 				data.items.forEach(function (movie: Movie, index: number) {
 					if (index < 10) {
 						const movieObject: Movie = {
-							description: movie.description,
+							rating: movie.rating,
 							id: movie.id,
 							image: movie.image.replace('original', '640x800'),
 							title: movie.title,
@@ -45,7 +42,7 @@ const PopularMovies: React.FC<{url: string, title: string}> = ({url, title}) => 
 	}, [getData, url])
 
 	return (
-		<section className='wrapper popular-movies'>
+		<section className={classes.sectionPopular}>
 			<h2>{title}</h2>
 			{!isLoading && <Cards movies={fetchMovies} />}
 			{isLoading && <Loading />}

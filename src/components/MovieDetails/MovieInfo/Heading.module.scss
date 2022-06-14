@@ -1,0 +1,23 @@
+.heading {
+  &__boxText {
+		font-size: 1.2rem;
+	}
+
+  &__favIcon {
+		display: none;
+	}
+}
+
+@media (min-width: 768px) {
+	.heading {
+		&__favIcon {
+			display: block;
+		}
+
+		&__boxTitle {
+			display: block;
+			font-size: 3rem;
+		}
+
+	}
+}

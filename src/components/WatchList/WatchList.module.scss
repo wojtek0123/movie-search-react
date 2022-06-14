@@ -1,0 +1,11 @@
+@use '../../colors';
+@use '../../mixins';
+
+.watchList {
+  @include mixins.wrapper;
+  margin-top: 5em;
+  color: colors.$white-color;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}

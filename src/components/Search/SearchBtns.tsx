@@ -1,13 +1,14 @@
 import Button from '../UI/Button';
+import classes from './SearchBtns.module.scss';
 
 const SearchBtns: React.FC<{
 	onMovie: () => void;
 	onTvSeries: () => void;
-	movieClasses: string;
-	tvSeriesClasses: string;
+	movieClasses: boolean;
+	tvSeriesClasses: boolean;
 }> = ({ onMovie, onTvSeries, movieClasses, tvSeriesClasses }) => {
 	return (
-		<div className='search__box'>
+		<div className={classes.btns}>
 			<Button onClick={onMovie} classes={movieClasses}>
 				Movie
 			</Button>

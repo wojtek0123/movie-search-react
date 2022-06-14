@@ -1,0 +1,13 @@
+@use '../../colors';
+@use '../../mixins';
+
+.search {
+  @include mixins.wrapper;
+
+  margin-top: 1em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  color: colors.$white-color;
+}

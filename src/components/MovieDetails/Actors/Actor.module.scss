@@ -1,0 +1,21 @@
+.actor {
+	display: flex;
+
+	&__img {
+		width: 5em;
+		height: 5em;
+		object-fit: cover;
+		object-position: center;
+		margin-right: 1em;
+	}
+
+	&__box {
+		display: flex;
+		flex-direction: column;
+		text-align: left;
+	}
+
+	&__character {
+		margin-top: 0.5em;
+	}
+}

@@ -1,0 +1,11 @@
+.container {
+	display: flex;
+	margin-top: 2em;
+}
+
+@media (min-width: 768px) {
+	.container {
+		flex-direction: row;
+		margin-top: 6em;
+	}
+}

@@ -1,0 +1,11 @@
+@use '../../../colors';
+
+.card {
+	position: relative;
+	overflow: hidden;
+
+	&__link {
+		color: colors.$white-color;
+		text-decoration: none;
+	}
+}
