@@ -27,8 +27,8 @@ const useFetchMovie = () => {
 					plot: data.plot || '',
 					actors: data.actorList || '',
 				};
-				setIsLoading(false);
 				setFetchMovie(movieObject);
+				setIsLoading(false);
 				return movieObject;
 			} else {
 				throw new Error(data.errorMessage);

@@ -1,5 +1,10 @@
 @use './colors';
 
+@font-face {
+  font-family: 'Montserrat';
+  src: local('Montserrat') url(./assets/fonts/Montserrat-VariableFont_wght.ttf) format('truetype');
+}
+
 *, *::after, *::before {
   box-sizing: border-box;
   margin: 0;
@@ -8,6 +13,7 @@
 
 body {
   display: flex;
+  font-family: Montserrat, sans-serif;
   background-color: colors.$background-color;
   flex-direction: column;
   color: colors.$white-color;
