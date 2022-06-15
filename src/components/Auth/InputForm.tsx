@@ -1,16 +1,22 @@
+import classes from './InputForm.module.scss';
+
 const InputForm: React.FC<{
 	type: string;
 	id: string;
-	ref: React.RefObject<HTMLInputElement>;
-}> = ({ type, id, ref }) => {
+	reference: React.RefObject<HTMLInputElement>;
+	name: string;
+}> = ({ type, id, reference, name }) => {
 	return (
-		<input
-			type={type}
-			id={id}
-			className='auth__input'
-			ref={ref}
-			required
-		/>
+		<div className={classes.input}>
+			<label htmlFor={id} className={classes.input__label}>{name}</label>
+			<input
+				type={type}
+				id={id}
+				className={classes.input__input}
+				ref={reference}
+				required
+			/>
+		</div>
 	);
 };
 

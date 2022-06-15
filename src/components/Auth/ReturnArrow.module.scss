@@ -1,0 +1,11 @@
+.returnArrow {
+	width: 100%;
+	display: flex;
+
+	&__image {
+		width: 2em;
+		height: 2em;
+		cursor: pointer;
+		margin-top: 1em;
+	}
+}

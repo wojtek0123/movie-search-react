@@ -1,0 +1,20 @@
+@use '../../colors';
+@use '../../mixins';
+
+.newAccountButton {
+  font-size: 1rem;
+  background: none;
+  border: none;
+  border-radius: 0.25em;
+  color: colors.$blue-color;
+  margin-top: 1em;
+  padding: 0.5em 1em;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in, color 0.3s ease-in;
+  letter-spacing: 0.6px;
+
+  &:hover {
+    background-color: colors.$skyblue-color;
+    color: colors.$primary-color;
+  }
+}
