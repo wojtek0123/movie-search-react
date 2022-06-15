@@ -11,6 +11,12 @@ body {
   background-color: colors.$background-color;
   flex-direction: column;
   color: colors.$white-color;
-  margin: 0 1em;
   overflow-x: hidden;
+  margin: 0 1em;
+}
+
+@media (min-width: 768px) {
+  body {
+    margin: 0;
+  }
 }

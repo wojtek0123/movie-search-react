@@ -1,7 +1,5 @@
 @use '../../mixins';
 
-.header {
+.popularWrapper {
   @include mixins.wrapper;
-  margin: 0;
-  max-width: 100%;
 }

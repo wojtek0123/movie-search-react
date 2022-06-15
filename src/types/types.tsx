@@ -1,5 +1,5 @@
 export type Movie = {
-	description: string;
+	rating: string;
 	id: string;
 	image: string;
 	title: string;
@@ -12,18 +12,12 @@ export type MovieDetailsImdbData = {
 	rating: string;
 	metacriticsRating: string;
 	releaseDate: string;
-	similars: string[];
+	similars: Movie[];
 	directors: string;
 	genres: string;
 	backgroundImage: string;
 	plot: string;
 	actors: Actor[];
-};
-
-export type MovieTrailer = {
-	id: string;
-	videoId: string;
-	videoUrl: string;
 };
 
 export type Actor = {
@@ -37,7 +31,7 @@ export interface IFavContext {
 	favouriteMovies: {
 		id: string;
 		image: string;
-		description: string;
+		rating: string;
 		title: string;
 	}[];
 	addToFav: (movie: Movie) => void;

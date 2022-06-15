@@ -19,3 +19,9 @@
   padding: 0.75em;
   border-radius: 0.25em;
 }
+
+@mixin wrapper {
+  width: 100%;
+  max-width: 1200px;
+  margin-inline: auto;
+}

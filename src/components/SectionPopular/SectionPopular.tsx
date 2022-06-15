@@ -4,10 +4,19 @@ import Cards from '../Cards/Cards';
 import React, { useState, useCallback, useEffect } from 'react';
 import classes from './SectionPopular.module.scss';
 import { Movie } from '../../types/types';
+import SectionTitle from '../UI/SectionTitle';
 
-const PopularMovies: React.FC<{url: string, title: string}> = ({url, title}) => {
+const NUMBER_OF_MOVIES_DISPLAYED = 12;
+
+const PopularMovies: React.FC<{ url: string; title: string, onNumMoviesDisplayed: (numMovies: number) => void }> = ({
+	url,
+	title,
+	onNumMoviesDisplayed
+}) => {
 	const [fetchMovies, setFetchMovies] = useState<Movie[]>([]);
 	const [isLoading, setIsLoading] = useState(false);
+
+	onNumMoviesDisplayed(NUMBER_OF_MOVIES_DISPLAYED)
 
 	const getData = useCallback(async (url: string) => {
 		setFetchMovies([]);
@@ -18,11 +27,11 @@ const PopularMovies: React.FC<{url: string, title: string}> = ({url, title}) => 
 			const data = await response.json();
 			if (response.ok) {
 				data.items.forEach(function (movie: Movie, index: number) {
-					if (index < 10) {
+					if (index < NUMBER_OF_MOVIES_DISPLAYED) {
 						const movieObject: Movie = {
 							rating: movie.rating,
 							id: movie.id,
-							image: movie.image.replace('original', '640x800'),
+							image: movie.image.replaceAll('128', '640').replace('176', '800'),
 							title: movie.title,
 						};
 						setFetchMovies((prevState) => [...prevState, movieObject]);
@@ -37,13 +46,13 @@ const PopularMovies: React.FC<{url: string, title: string}> = ({url, title}) => 
 		}
 	}, []);
 
-		useEffect(() => {
-			getData(url);
-	}, [getData, url])
+	useEffect(() => {
+		getData(url);
+	}, [getData, url]);
 
 	return (
 		<section className={classes.sectionPopular}>
-			<h2>{title}</h2>
+			<SectionTitle>{title}</SectionTitle>
 			{!isLoading && <Cards movies={fetchMovies} />}
 			{isLoading && <Loading />}
 		</section>
