@@ -8,15 +8,12 @@ import SectionTitle from '../UI/SectionTitle';
 
 const NUMBER_OF_MOVIES_DISPLAYED = 12;
 
-const PopularMovies: React.FC<{ url: string; title: string, onNumMoviesDisplayed: (numMovies: number) => void }> = ({
+const PopularMovies: React.FC<{ url: string; title: string }> = ({
 	url,
 	title,
-	onNumMoviesDisplayed
 }) => {
 	const [fetchMovies, setFetchMovies] = useState<Movie[]>([]);
 	const [isLoading, setIsLoading] = useState(false);
-
-	onNumMoviesDisplayed(NUMBER_OF_MOVIES_DISPLAYED)
 
 	const getData = useCallback(async (url: string) => {
 		setFetchMovies([]);
