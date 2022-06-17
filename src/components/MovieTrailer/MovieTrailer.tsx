@@ -53,8 +53,9 @@ const MovieTrailer: React.FC = () => {
 					<ReactPlayer
 						url={videoUrl}
 						playing={true}
+						volume={0.5}
 						width='100%'
-						height='75vh'
+						height='60vh'
 						controls={true}
 					/>
 				)}

@@ -9,6 +9,7 @@ import useFetchMovie from '../../hooks/use-fetch-movie';
 import Similars from './Similars/Similars';
 import Container from './Container';
 import Header from '../UI/Header';
+import Rating from './MovieInfo/Rating';
 
 const MovieDetails: React.FC = () => {
 	const params = useParams();
@@ -36,6 +37,9 @@ const MovieDetails: React.FC = () => {
 					<main>
 						<MobileTitle movie={fetchMovie} />
 						<Container movie={fetchMovie} />
+						<div className={classes.details__box}>
+							<Rating movie={fetchMovie} />
+						</div>
 						<Similars movies={fetchMovie?.similars} />
 						<Actors actors={fetchMovie?.actors} />
 					</main>

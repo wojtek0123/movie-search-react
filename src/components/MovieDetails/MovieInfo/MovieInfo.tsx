@@ -15,7 +15,9 @@ const MovieInfo: React.FC<{
 		<div className={classes.movieInfo}>
 			<Heading movie={movie} />
 			<MainText movie={movie} />
-			<Rating movie={movie} />
+			<div className={classes.movieInfo__box}>
+				<Rating movie={movie} />
+			</div>
 		</div>
 	);
 };

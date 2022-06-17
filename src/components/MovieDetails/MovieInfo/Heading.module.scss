@@ -1,4 +1,6 @@
 .heading {
+	padding-bottom: 3em;
+
   &__boxText {
 		font-size: 1.2rem;
 	}
@@ -16,8 +18,7 @@
 
 		&__boxTitle {
 			display: block;
-			font-size: 3rem;
+			font-size: 4rem;
 		}
-
 	}
 }

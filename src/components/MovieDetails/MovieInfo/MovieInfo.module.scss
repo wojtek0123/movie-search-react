@@ -1,85 +1,19 @@
 .movieInfo {
 	display: flex;
 	flex-direction: column;
+	justify-content: flex-start;
 	margin-left: 1em;
+	padding-bottom: 2em;
 
-	&__favIcon {
+	&__box {
 		display: none;
-	}
-
-	&-directors {
-		margin-top: 0.5em;
-		font-size: 1.2rem;
-	}
-
-	&-release-date-mobile {
-		font-size: 1rem;
-	}
-
-	&__boxText--desktop {
-		display: none;
-	}
-
-	&-img {
-		width: 35vw;
-		margin-bottom: 1em;
-	}
-
-	&__boxText {
-		font-size: 1.2rem;
-	}
-
-	&-title-mobile {
-		font-size: 3rem;
-		margin: 1em 0 0.2em;
-	}
-
-	&__boxDesktop {
-		display: none;
-	}
-
-	&-center-img {
-		display: flex;
-		align-items: center;
-	}
-
-	&__box--stats {
-		margin-top: 0.5em;
-		font-size: 1.1rem;
 	}
 }
 
 @media (min-width: 768px) {
 	.movieInfo {
-		// &__box-title-mobile {
-		// 	display: none;
-		// }
-
-		&__favIcon {
+		&__box {
 			display: block;
-		}
-
-		&__boxTitle {
-			display: block;
-			font-size: 3rem;
-		}
-
-		&__boxText--desktop {
-			margin-bottom: 3em;
-			display: block;
-		}
-	}
-}
-
-@media (min-width: 1024px) {
-	.details {
-		&__box-title-desktop {
-			font-size: 4rem;
-		}
-
-		&__boxText {
-			font-size: 1.5rem;
-			margin-bottom: 1em;
 		}
 	}
 }

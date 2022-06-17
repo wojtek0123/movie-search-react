@@ -1,5 +1,5 @@
 .rating {
-	margin-top: 0.5em;
+	margin-top: 3em;
 	font-size: 1.1rem;
 
 	&__boxText {
@@ -10,7 +10,7 @@
 @media (min-width: 1024px) {
 	.rating {
 		&__boxText {
-			font-size: 1.5rem;
+			font-size: 1.3rem;
 			margin-bottom: 1em;
 		}
 	}
