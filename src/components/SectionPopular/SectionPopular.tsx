@@ -28,7 +28,7 @@ const PopularMovies: React.FC<{ url: string; title: string }> = ({
 						const movieObject: Movie = {
 							rating: movie.rating,
 							id: movie.id,
-							image: movie.image.replaceAll('128', '640').replace('176', '800'),
+							image: movie.image.replaceAll('128', '640').replaceAll('176', '800'),
 							title: movie.title,
 						};
 						setFetchMovies((prevState) => [...prevState, movieObject]);

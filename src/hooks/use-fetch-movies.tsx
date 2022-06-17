@@ -33,7 +33,7 @@ const useFetchData = () => {
 				throw new Error(data.errorMessage);
 			}
 		} catch (error) {
-			alert(error);
+			alert('Too many queries to API. Limit is 100.');
 		}
 	}, []);
 

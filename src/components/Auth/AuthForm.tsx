@@ -64,7 +64,7 @@ const AuthForm: React.FC = () => {
 		}
 
 		if (hasAccount) {
-			return true;
+			return false;
 		}
 
 		if (enteredPassword.length < 8 || enteredPassword.length > 24) {
