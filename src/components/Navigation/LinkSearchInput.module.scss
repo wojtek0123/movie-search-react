@@ -1,0 +1,28 @@
+.linkSearchInput {
+	display: none;
+
+	&__input {
+		display: none;
+	}
+}
+
+@media (min-width: 768px) {
+	.linkSearchInput {
+		text-decoration: none;
+		display: block;
+
+		// display: block;
+		// padding: 0.5em 2em;
+		// width: 30vw;
+		// text-decoration: none;
+		// font-size: 1.1rem;
+
+		&__input {
+			display: block;
+			padding: 0.5em 2em;
+			width: 30vw;
+			text-decoration: none;
+			font-size: 1.1rem;
+		}
+	}
+}

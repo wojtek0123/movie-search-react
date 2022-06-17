@@ -1,0 +1,11 @@
+.searchBtn {
+  width: 2em;
+}
+
+@media (min-width: 768px) {
+	.searchBtn {
+		&__icon {
+			display: none;
+		}
+	}
+}

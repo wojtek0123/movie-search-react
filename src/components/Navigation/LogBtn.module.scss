@@ -1,0 +1,10 @@
+@use '../../colors';
+@use '../../mixins';
+
+.logBtn {
+	@include mixins.button;
+  
+	padding: 0.5em 1em;
+	text-decoration: none;
+	color: colors.$primary-color;
+}

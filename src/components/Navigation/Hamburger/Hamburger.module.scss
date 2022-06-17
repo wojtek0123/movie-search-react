@@ -1,0 +1,51 @@
+@use '../../../colors';
+
+.hamburger {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  height: 2em;
+  width: 2em;
+  z-index: 2;
+  cursor: pointer;
+
+  &__bar {
+    background-color: colors.$primary-color;
+    height: 3px;
+    position: relative;
+    width: 100%;
+    transition: transform .3s;
+  
+    &::after,
+    &::before {
+      background-color: colors.$primary-color;
+      content: '';
+      height: 3px;
+      position: absolute;
+      width: 100%;
+      transition: transform .3s ease-in, background-color .3s ease-in;
+    }
+  
+    &::after {
+      top: -7.5px;
+    }
+  
+    &::before {
+      top: 8px;
+    }
+  }
+
+  &.active .hamburger__bar {
+    background-color: transparent;
+  }
+
+  &.active &__bar::after {
+    transform: rotate(45deg) translate(6px, 6px);
+    background-color: colors.$white-color;
+  }
+
+  &.active &__bar::before {
+    transform: rotate(-45deg) translate(5px, -5px);
+    background-color: colors.$white-color;
+  }
+}
