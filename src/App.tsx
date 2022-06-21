@@ -7,7 +7,7 @@ const App = () => {
 	return (
 		<div className='app wrapper'>
 			<Navigation />
-			<MovieTrailer />
+			<MovieTrailer titleId={undefined} />
 			<PopularWrapper />
 		</div>
 	);

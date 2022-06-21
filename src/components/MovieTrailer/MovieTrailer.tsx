@@ -7,7 +7,7 @@ import classes from './MovieTrailer.module.scss';
 const url = `https://imdb-api.com/en/API/ComingSoon/${process.env.REACT_APP_IMDB_API_KEY}`;
 const url2 = `https://imdb-api.com/en/API/YouTubeTrailer/${process.env.REACT_APP_IMDB_API_KEY}/`;
 
-const MovieTrailer: React.FC = () => {
+const MovieTrailer: React.FC<{ titleId: string | undefined }> = ({titleId}) => {
 	const [isLoading, setIsLoading] = useState(false);
 	const [videoUrl, setVideoUrl] = useState('');
 
@@ -29,7 +29,10 @@ const MovieTrailer: React.FC = () => {
 
 	const getMovieTrailer = useCallback(async () => {
 		try {
-			const movieId = await getMovieId();
+			let movieId = titleId;
+			if (!titleId) {
+				movieId = await getMovieId();
+			}
 			const response = await fetch(`${url2}${movieId}`);
 			const data = await response.json();
 			if (response.ok) {
@@ -41,11 +44,12 @@ const MovieTrailer: React.FC = () => {
 		} catch (error) {
 			alert(error);
 		}
-	}, []);
+	}, [titleId]);
 
 	useEffect(() => {
 		getMovieTrailer();
 	}, [getMovieTrailer]);
+
 	return (
 		<Header>
 			<div className={classes.movieTrailer}>

@@ -8,8 +8,8 @@ import MobileTitle from './MobileTitle';
 import useFetchMovie from '../../hooks/use-fetch-movie';
 import Similars from './Similars/Similars';
 import Container from './Container';
-import Header from '../UI/Header';
 import Rating from './MovieInfo/Rating';
+import MovieTrailer from '../MovieTrailer/MovieTrailer';
 
 const MovieDetails: React.FC = () => {
 	const params = useParams();
@@ -27,13 +27,7 @@ const MovieDetails: React.FC = () => {
 			{isLoading && <Loading />}
 			{!isLoading && (
 				<>
-					<Header>
-						<img
-							className={classes.details__img}
-							src={fetchMovie?.backgroundImage}
-							alt={`One of images from movie`}
-						/>
-					</Header>
+					<MovieTrailer titleId={fetchMovie?.id} />
 					<main>
 						<MobileTitle movie={fetchMovie} />
 						<Container movie={fetchMovie} />
