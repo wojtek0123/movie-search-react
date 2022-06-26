@@ -13,6 +13,7 @@ App created using react library and TypeScript. App give possibility to sign in 
 
 # How to run
 It's standard React app so just type
+### `npm install`
 ### `npm start`
 to run this project on your computer
 
