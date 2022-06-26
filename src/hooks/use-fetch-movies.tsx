@@ -5,35 +5,32 @@ const useFetchData = () => {
 	const [fetchMovies, setFetchMovies] = useState<Movie[]>([]);
 	const [isLoading, setIsLoading] = useState(false);
 
-	const getData = useCallback(async (
-		url: string,
-		enteredInput: string,
-	) => {
+	const getData = useCallback(async (url: string, enteredInput: string) => {
 		setFetchMovies([]);
 		setIsLoading(true);
 		try {
 			const response = await fetch(`${url}${enteredInput}`);
 
 			const data = await response.json();
-			if (response.ok) {
-				if (data.errorMessage !== '') {
-					throw new Error(data.errorMessage);
-				}
-				data.results.forEach(function (movie: Movie) {
-					const movieObject: Movie = {
-						rating: movie.rating || '',
-						id: movie.id || '',
-						image: movie.image || '',
-						title: movie.title || '',
-					};
-					setFetchMovies((prevState) => [...prevState, movieObject]);
-				});
-				setIsLoading(false);
-			} else {
+			if (!response.ok || data.errorMessage !== null) {
 				throw new Error(data.errorMessage);
 			}
+
+			// if (data.errorMessage !== '') {
+			// 	throw new Error(data.errorMessage);
+			// }
+			data.results.forEach(function (movie: Movie) {
+				const movieObject: Movie = {
+					rating: movie.rating || '',
+					id: movie.id || '',
+					image: movie.image || '',
+					title: movie.title || '',
+				};
+				setFetchMovies((prevState) => [...prevState, movieObject]);
+			});
+			setIsLoading(false);
 		} catch (error) {
-			alert('Too many queries to API. Limit is 100.');
+			alert(error);
 		}
 	}, []);
 

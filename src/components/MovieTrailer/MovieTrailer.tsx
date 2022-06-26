@@ -7,44 +7,45 @@ import classes from './MovieTrailer.module.scss';
 const url = `https://imdb-api.com/en/API/ComingSoon/${process.env.REACT_APP_IMDB_API_KEY}`;
 const url2 = `https://imdb-api.com/en/API/YouTubeTrailer/${process.env.REACT_APP_IMDB_API_KEY}/`;
 
-const MovieTrailer: React.FC<{ titleId: string | undefined }> = ({titleId}) => {
+const MovieTrailer: React.FC<{ titleId: string | undefined }> = ({
+	titleId,
+}) => {
 	const [isLoading, setIsLoading] = useState(false);
 	const [videoUrl, setVideoUrl] = useState('');
 
-	const getMovieId = async () => {
+	const getMovieId = useCallback(async () => {
 		setIsLoading(true);
+		if (titleId !== undefined) {
+			return titleId;
+		}
+
 		try {
 			const response = await fetch(url);
 			const data = await response.json();
-			if (response.ok) {
-				return data.items[0].id;
-			} else {
-				setIsLoading(false);
+			if (!response.ok || data.errorMessage !== null) {
 				throw new Error(data.errorMessage);
 			}
-		} catch (error) {
-			alert(error);
-		}
-	};
-
-	const getMovieTrailer = useCallback(async () => {
-		try {
-			let movieId = titleId;
-			if (!titleId) {
-				movieId = await getMovieId();
-			}
-			const response = await fetch(`${url2}${movieId}`);
-			const data = await response.json();
-			if (response.ok) {
-				setVideoUrl(data.videoUrl);
-			} else {
-				throw new Error(data.errorMessage);
-			}
-			setIsLoading(false);
+			return data.items[0].id;
 		} catch (error) {
 			alert(error);
 		}
 	}, [titleId]);
+
+	const getMovieTrailer = useCallback(async () => {
+		try {
+			const movieId = await getMovieId();
+			const response = await fetch(`${url2}${movieId}`);
+			const data = await response.json();
+			if (!response.ok || data.errorMessage !== '') {
+				setIsLoading(false)
+				throw new Error(data.errorMessage);
+			}
+			setVideoUrl(data.videoUrl);
+			setIsLoading(false);
+		} catch (error) {
+			alert(error);
+		}
+	}, [getMovieId]);
 
 	useEffect(() => {
 		getMovieTrailer();
