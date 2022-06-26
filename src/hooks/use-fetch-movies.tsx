@@ -12,13 +12,10 @@ const useFetchData = () => {
 			const response = await fetch(`${url}${enteredInput}`);
 
 			const data = await response.json();
-			if (!response.ok || data.errorMessage !== null) {
+			if (!response.ok || data.errorMessage !== '') {
 				throw new Error(data.errorMessage);
 			}
-
-			// if (data.errorMessage !== '') {
-			// 	throw new Error(data.errorMessage);
-			// }
+			
 			data.results.forEach(function (movie: Movie) {
 				const movieObject: Movie = {
 					rating: movie.rating || '',
