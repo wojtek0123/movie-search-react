@@ -4,7 +4,7 @@ import ReactPlayer from 'react-player';
 import Loading from '../UI/Loading';
 import classes from './MovieTrailer.module.scss';
 
-const url = `https://imdb-api.com/en/API/ComingSoon/${process.env.REACT_APP_IMDB_API_KEY}`;
+// const url = `https://imdb-api.com/en/API/ComingSoon/${process.env.REACT_APP_IMDB_API_KEY}`;
 const url2 = `https://imdb-api.com/en/API/YouTubeTrailer/${process.env.REACT_APP_IMDB_API_KEY}/`;
 
 const MovieTrailer: React.FC<{ titleId: string | undefined }> = ({
@@ -13,28 +13,29 @@ const MovieTrailer: React.FC<{ titleId: string | undefined }> = ({
 	const [isLoading, setIsLoading] = useState(false);
 	const [videoUrl, setVideoUrl] = useState('');
 
-	const getMovieId = useCallback(async () => {
-		setIsLoading(true);
-		if (titleId !== undefined) {
-			return titleId;
-		}
+	// const getMovieId = useCallback(async () => {
+	// 	setIsLoading(true);
 
-		try {
-			const response = await fetch(url);
-			const data = await response.json();
-			if (!response.ok || data.errorMessage !== null) {
-				throw new Error(data.errorMessage);
-			}
-			return data.items[0].id;
-		} catch (error) {
-			alert(error);
-		}
-	}, [titleId]);
+	// 	try {
+	// 		if (titleId !== undefined) {
+	// 			return titleId;
+	// 		}
+
+	// 		const response = await fetch(url);
+	// 		const data = await response.json();
+	// 		console.log(data);
+	// 		if (!response.ok || data.errorMessage !== null) {
+	// 			throw new Error(data.errorMessage);
+	// 		}
+	// 		return data.items[0].id;
+	// 	} catch (error) {
+	// 		alert(error);
+	// 	}
+	// }, [titleId]);
 
 	const getMovieTrailer = useCallback(async () => {
 		try {
-			const movieId = await getMovieId();
-			const response = await fetch(`${url2}${movieId}`);
+			const response = await fetch(`${url2}${titleId}`);
 			const data = await response.json();
 			if (!response.ok || data.errorMessage !== '') {
 				setIsLoading(false)
@@ -43,9 +44,9 @@ const MovieTrailer: React.FC<{ titleId: string | undefined }> = ({
 			setVideoUrl(data.videoUrl);
 			setIsLoading(false);
 		} catch (error) {
-			alert(error);
+			console.log(error);
 		}
-	}, [getMovieId]);
+	}, [titleId]);
 
 	useEffect(() => {
 		getMovieTrailer();

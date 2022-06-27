@@ -15,7 +15,7 @@ const useFetchData = () => {
 			if (!response.ok || data.errorMessage !== '') {
 				throw new Error(data.errorMessage);
 			}
-			
+
 			data.results.forEach(function (movie: Movie) {
 				const movieObject: Movie = {
 					rating: movie.rating || '',
@@ -23,7 +23,7 @@ const useFetchData = () => {
 					image: movie.image || '',
 					title: movie.title || '',
 				};
-				setFetchMovies((prevState) => [...prevState, movieObject]);
+				setFetchMovies(prevState => [...prevState, movieObject]);
 			});
 			setIsLoading(false);
 		} catch (error) {

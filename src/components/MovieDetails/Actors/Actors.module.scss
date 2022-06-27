@@ -2,6 +2,7 @@
 
 .actors {
 	@include mixins.wrapper;
+	margin-bottom: 2em;
 	width: 100%;
 
 	&__title {

@@ -12,14 +12,9 @@ const useFetchMovie = () => {
 				`https://imdb-api.com/en/API/Title/${process.env.REACT_APP_IMDB_API_KEY}/${id}/FullActor,Trailer,Ratings,`
 			);
 			const data = await response.json();
-			console.log(data);
 			if (!response.ok || data.errorMessage !== null) {
 				throw new Error(data.errorMessage);
 			}
-
-			// if (data.errorMessage.length !== '') {
-			// 	throw new Error(data.errorMessage);
-			// }
 
 			const movieObject: MovieDetailsImdbData = {
 				id: data.id || '',

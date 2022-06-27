@@ -22,7 +22,6 @@ export const FavContextProvider: React.FC<{ children: JSX.Element }> = ({
 	const [favouriteMovies, setFavouriteMovies] = useState<Movie[]>(initialState);
 
 	useEffect(() => {
-		console.log(favouriteMovies);
 		localStorage.setItem('movies', JSON.stringify(favouriteMovies));
 	}, [favouriteMovies])
 
