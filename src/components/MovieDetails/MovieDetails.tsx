@@ -35,7 +35,7 @@ const MovieDetails: React.FC = () => {
 							<Rating movie={fetchMovie} />
 						</div>
 						<Similars movies={fetchMovie?.similars} />
-						<Actors actors={fetchMovie?.actors} />
+						<Actors actors={fetchMovie?.actors || []} />
 					</main>
 				</>
 			)}
