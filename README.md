@@ -14,6 +14,3 @@ It's standard React app so just type
 ### `npm install`
 ### `npm start`
 to run this project on your computer
-
-# Things I plan to do:
-* new page for actor details
